@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use App\Services\OrderProcessingService;
 use Illuminate\Http\Request;
 

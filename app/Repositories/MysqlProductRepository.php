@@ -2,9 +2,10 @@
 
 namespace App\Repositories;
 
+use App\Repositories\Contracts\ProductRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 
-class ProductRepository
+class MysqlProductRepository implements ProductRepositoryInterface
 {
     public function getById($product_id)
     {

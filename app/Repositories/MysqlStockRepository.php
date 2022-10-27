@@ -4,8 +4,9 @@ namespace App\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
+use App\Repositories\Contracts\StockRepositoryInterface;
 
-class StockRepository
+class MysqlStockRepository implements StockRepositoryInterface
 {
     public const MINIMUM_STOCK_LEVEL = 1;
     public function forProduct($product_id)

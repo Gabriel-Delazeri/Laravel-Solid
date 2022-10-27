@@ -3,14 +3,10 @@
 namespace App\Services;
 
 
-use Illuminate\Http\Request;
 use App\Services\DiscountService;
-use Illuminate\Support\Facades\DB;
-use App\Repositories\StockRepository;
 use App\Services\StripePaymentService;
-use App\Repositories\ProductRepository;
-use Illuminate\Validation\ValidationException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use App\Repositories\Contracts\ProductRepositoryInterface;
+use App\Repositories\Contracts\StockRepositoryInterface;
 
 class OrderProcessingService
 {
@@ -18,8 +14,8 @@ class OrderProcessingService
     protected $productRepository, $stockRepository, $discountService, $stripePaymentService;
 
     public function __construct(
-        ProductRepository $productRepository,
-        StockRepository $stockRepository,
+        ProductRepositoryInterface $productRepository,
+        StockRepositoryInterface $stockRepository,
         DiscountService $discountService,
         StripePaymentService $stripePaymentService
     )

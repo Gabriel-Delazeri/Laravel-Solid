@@ -3,6 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Repositories\MysqlStockRepository;
+use App\Repositories\MysqlProductRepository;
+use App\Repositories\Contracts\StockRepositoryInterface;
+use App\Repositories\Contracts\ProductRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +17,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(ProductRepositoryInterface::class, MysqlProductRepository::class);
+        $this->app->bind(StockRepositoryInterface::class, MysqlStockRepository::class);
     }
 
     /**
@@ -23,6 +28,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
     }
 }
