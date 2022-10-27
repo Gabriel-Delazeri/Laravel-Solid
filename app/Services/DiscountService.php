@@ -15,6 +15,11 @@ class DiscountService
         $this->discountable = $discountable;
     }
 
+    public static function make(Discountable $discountable)
+    {
+        return new static($discountable);
+    }
+
     public function with($product)
     {
         $this->product = $product;
