@@ -5,8 +5,9 @@ namespace App\Services;
 
 use App\Services\DiscountService;
 use App\Services\StripePaymentService;
-use App\Repositories\Contracts\ProductRepositoryInterface;
+use App\Patterns\Discounts\TwentyPercentDiscount;
 use App\Repositories\Contracts\StockRepositoryInterface;
+use App\Repositories\Contracts\ProductRepositoryInterface;
 
 class OrderProcessingService
 {
@@ -16,13 +17,11 @@ class OrderProcessingService
     public function __construct(
         ProductRepositoryInterface $productRepository,
         StockRepositoryInterface $stockRepository,
-        DiscountService $discountService,
         StripePaymentService $stripePaymentService
     )
     {
         $this->productRepository = $productRepository;
         $this->stockRepository = $stockRepository;
-        $this->discountService = $discountService;
         $this->stripePaymentService = $stripePaymentService;
     }
     public function execute($product_id)
@@ -33,7 +32,8 @@ class OrderProcessingService
 
         $this->stockRepository->checkAvailibility($stock);
 
-        $total = $this->discountService->with($product)->applySpecialDiscount();
+        $discountService = new DiscountService(new TwentyPercentDiscount);
+        $total = $discountService->with($product)->apply();
 
         $paymentSuccessMessage = $this->stripePaymentService->process($total);
 
