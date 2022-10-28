@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Product;
+use App\Http\Controllers\ProductsController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,8 +14,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
+
+Route::get('/', [ProductsController::class, 'index']);
 Route::post('order/{product_id}/process', ProcessOrdersController::class);
